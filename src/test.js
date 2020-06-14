@@ -1,0 +1,2 @@
+
+exports.constante = 5;
