@@ -1,2 +1,0 @@
-
-exports.constante = 5;
