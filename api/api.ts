@@ -56,9 +56,9 @@ export class API {
          */
         switch(req.method) {
             case "GET": break;
-            case "POST": path = API.RequestsPathPost;
-            case "PUT": path = API.RequestsPathPut;
-            case "DELETE": path = API.RequestsPathDel;
+            case "POST":    path = API.RequestsPathPost;
+            case "PUT":     path = API.RequestsPathPut;
+            case "DELETE":  path = API.RequestsPathDel;
             //TODO: default res unsupported method
         }
 
