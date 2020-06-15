@@ -25,7 +25,8 @@ var API = /** @class */ (function () {
         //removing '/api/' prefix (should this to be changed to modular version ?)
         req.originalUrl = req.originalUrl.substr(5);
         var module = require(path + "/" + req.originalUrl);
-        module.execute(req, res);
+        //res.send(req.originalUrl.split("/"));
+        module.execute(req.originalUrl.split("/"), req.body, res);
     };
     API.api_main = function (req, res) {
         API.instance().entry(req, res);

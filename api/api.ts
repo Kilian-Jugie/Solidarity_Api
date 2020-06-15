@@ -1,7 +1,7 @@
 import { Request, Response } from 'express-serve-static-core';
 
 export interface APIRequest {
-    execute(req: Request, res: Response): void;
+    execute(params: any, body: string, res: Response): void;
 }
 
 export class API {
@@ -35,7 +35,10 @@ export class API {
         req.originalUrl = req.originalUrl.substr(5);
 
         let module: APIRequest = require(path+"/"+req.originalUrl);
-        module.execute(req, res);
+        
+        //res.send(req.originalUrl.split("/"));
+        
+        module.execute(req.originalUrl.split("/"), req.body, res);
     }
     
     public static api_main(req: Request, res: Response): void {

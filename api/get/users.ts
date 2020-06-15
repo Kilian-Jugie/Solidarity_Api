@@ -2,8 +2,8 @@ import {APIRequest} from '../api';
 import { Request, Response } from 'express-serve-static-core';
 
 class GetUsers implements APIRequest {
-    execute(req: Request, res: Response): void {
-        res.send("Gat daaamn");
+    execute(params: any, body: string, res: Response): void {
+        res.send(params[0]);
     }
 }
 

@@ -17,8 +17,6 @@ app.use(bodyParser.json());
 router.use(bodyParser.json());
 
 app.use('/',(req, res, next) => {
-    //res.send(req.originalUrl);
-    
     api.API.api_main(req, res);
 });
 
