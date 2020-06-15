@@ -2,8 +2,8 @@
 var GetUsers = /** @class */ (function () {
     function GetUsers() {
     }
-    GetUsers.prototype.execute = function (params, body, res) {
-        res.send(params[0]);
+    GetUsers.prototype.execute = function (params, body, query, res) {
+        res.send(query);
     };
     return GetUsers;
 }());

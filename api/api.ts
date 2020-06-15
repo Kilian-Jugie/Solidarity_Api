@@ -1,7 +1,8 @@
 import { Request, Response } from 'express-serve-static-core';
 
+
 export interface APIRequest {
-    execute(params: any, body: string, res: Response): void;
+    execute(params: any, body: string, query: any, res: Response): void;
 }
 
 export class API {
@@ -33,12 +34,19 @@ export class API {
 
         //removing '/api/' prefix (should this to be changed to modular version ?)
         req.originalUrl = req.originalUrl.substr(5);
+        let name = req.originalUrl.substr(0, Math.max(req.originalUrl.indexOf("/"), req.originalUrl.indexOf("?")));
+        if(name.length == 0) name = req.originalUrl; 
 
-        let module: APIRequest = require(path+"/"+req.originalUrl);
-        
-        //res.send(req.originalUrl.split("/"));
-        
-        module.execute(req.originalUrl.split("/"), req.body, res);
+        let module: APIRequest = require(path+"/"+name);
+        let params: String[] = req.originalUrl.split("/");
+
+        //TODO: turn this cleaner
+        let lastParam:String = params[params.length-1];
+        lastParam = lastParam.substr(0, lastParam.indexOf("?"));
+        if(lastParam.length==0) lastParam = params[params.length-1];
+        params[params.length-1] = lastParam;
+
+        module.execute(params, req.body, req.query, res);
     }
     
     public static api_main(req: Request, res: Response): void {
