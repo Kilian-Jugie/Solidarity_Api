@@ -2,9 +2,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var bodyParser = require('body-parser');
+var router = express.Router();
+var api = require("./api/api")
 
 var app = express();
 
@@ -12,9 +12,20 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+router.use(bodyParser.json());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/',(req, res, next) => {
+    api.API.api_main(req, res);
+});
+
+
+//let opts = {'extensions': ["html"], 'redirect': false}
+
+//app.use(express.static(path.join(__dirname, 'public'), opts));
+
+//app.use('/', indexRouter);
+//app.use('/users', usersRouter);
 
 module.exports = app;
