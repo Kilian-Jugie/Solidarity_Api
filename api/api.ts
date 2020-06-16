@@ -59,7 +59,10 @@ export class API {
             case "POST":    path = API.RequestsPathPost;
             case "PUT":     path = API.RequestsPathPut;
             case "DELETE":  path = API.RequestsPathDel;
-            //TODO: default res unsupported method
+            default: {
+                res.send({"type": "error", "code": 405, "description": "Method Not Allowed"});
+                return;
+            }
         }
 
         //removing '/api/' prefix (should this to be changed to modular version ?)
