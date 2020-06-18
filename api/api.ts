@@ -17,7 +17,7 @@ export interface APIRequest {
      * @param query Query as custom associative array [string]: string
      * @param res Response object from express to return data
      */
-    execute(params: String[], body: string, query: any, res: Response): void;
+    execute(params: String[], body: any, query: any, res: Response): void;
 }
 
 /**
@@ -56,9 +56,9 @@ export class API {
          */
         switch(req.method) {
             case "GET": break;
-            case "POST":    path = API.RequestsPathPost;
-            case "PUT":     path = API.RequestsPathPut;
-            case "DELETE":  path = API.RequestsPathDel;
+            case "POST":    path = API.RequestsPathPost; break;
+            case "PUT":     path = API.RequestsPathPut; break;
+            case "DELETE":  path = API.RequestsPathDel; break;
             default: {
                 res.send({"type": "error", "code": 405, "description": "Method Not Allowed"});
                 return;
