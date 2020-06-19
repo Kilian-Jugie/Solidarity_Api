@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.API = void 0;
+var mysql_1 = require("mysql");
 /**
  * @class The API itself (singleton)
  */
@@ -56,8 +57,17 @@ var API = /** @class */ (function () {
         if (lastParam.length == 0)
             lastParam = params[params.length - 1];
         params[params.length - 1] = lastParam;
+        var connection = mysql_1.createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "solidarity_bond",
+            port: 3308
+        });
+        connection.connect();
         //Executing the request
-        module.execute(params, req.body, req.query, res);
+        module.execute(params, req.body, req.query, res, connection);
+        connection.end();
     };
     /**
      * @brief The main entry of all API to be called by javascript code

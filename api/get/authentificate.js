@@ -2,7 +2,7 @@
 var GetAuthentificate = /** @class */ (function () {
     function GetAuthentificate() {
     }
-    GetAuthentificate.prototype.execute = function (params, body, query, res) {
+    GetAuthentificate.prototype.execute = function (params, body, query, res, dbcon) {
         if (params.length == 2) {
         }
         else {

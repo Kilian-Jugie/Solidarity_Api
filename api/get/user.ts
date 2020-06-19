@@ -1,14 +1,12 @@
 import {APIRequest} from '../api';
 import { Request, Response } from 'express-serve-static-core';
+import { Connection } from 'mysql';
 
 class GetUser implements APIRequest {
-    execute(params: String[], body: any, query: any, res: Response): void {
-        if(params.length == 2) {
-            res.send({"type": "answer", "user": "kilian.jugie@viacesi.fr", "id": params[1], "name": "jugie", "firstname": "kilian", "description": "Programmeur backend", "role": "Administrateur"})
-        }
-        else {
-            res.send({"type": "error", "code": 811, "description": "Incorrect parameters. Expecting user/{id}."});
-        }
+    execute(params: String[], body: any, query: any, res: Response, dbcon: Connection): void {
+        dbcon.query("CALL Get_User(?)", [+params[1]], function(error, results, fields) {
+            res.send(results[0][0]);
+        });
     }
 }
 
