@@ -393,6 +393,11 @@ jsonfile@^4.0.0:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
+jssha@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/jssha/-/jssha-3.1.0.tgz#bc9d11cefeea5cdaf931cee12cc5771b31d80252"
+  integrity sha512-tPCmr8xSLd8ug6N51k0rbF1tAQWZz1i/uCVHpCH9dl+Te+wM/T375R3lTexP3bk1HPmQ+NlJHQPYLmYuyk6slA==
+
 lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"

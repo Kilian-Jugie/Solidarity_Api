@@ -4,13 +4,13 @@ import { Utils } from '../utils';
 import { Connection } from 'mysql';
 
 
-class PostUser implements APIRequest {
+class PostUsers implements APIRequest {
     execute(params: String[], body: any, query: any, res: Response, dbcon: Connection): void {
         dbcon.query("CALL Add_User(?, ?, ?, ?, ?, ?)",[body.lastname, body.firstname, body.email,
             body.description, body.authkey, body.rolename], function(error, results, fields) {
-            res.send(results[0]);
+            res.status(201).send(results[0]);
         });
     }
 }
 
-export = new PostUser();
+export = new PostUsers();
