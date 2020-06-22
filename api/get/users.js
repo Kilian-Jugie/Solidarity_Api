@@ -12,9 +12,16 @@ var GetUsers = /** @class */ (function () {
             });
         }
         else {
-            dbcon.query("CALL Get_Users()", function (error, results, fields) {
-                res.send(results[0]);
-            });
+            if (query.role == undefined) {
+                dbcon.query("CALL Get_Users()", function (error, results, fields) {
+                    res.send(results[0]);
+                });
+            }
+            else {
+                dbcon.query("CALL Get_Users_Role(?)", [query.role], function (error, results, fields) {
+                    res.send(results[0]);
+                });
+            }
         }
     };
     return GetUsers;
