@@ -2,6 +2,7 @@
  *  @description Main mecanisms of the API
  */
 import { Request, Response } from 'express-serve-static-core';
+import { createConnection, Connection } from 'mysql';
 
 /** @interface APIRequest
  *  @brief A request to the API
@@ -17,7 +18,7 @@ export interface APIRequest {
      * @param query Query as custom associative array [string]: string
      * @param res Response object from express to return data
      */
-    execute(params: String[], body: string, query: any, res: Response): void;
+    execute(params: String[], body: any, query: any, res: Response, dbcon: Connection): void;
 }
 
 /**
@@ -56,10 +57,13 @@ export class API {
          */
         switch(req.method) {
             case "GET": break;
-            case "POST": path = API.RequestsPathPost;
-            case "PUT": path = API.RequestsPathPut;
-            case "DELETE": path = API.RequestsPathDel;
-            //TODO: default res unsupported method
+            case "POST":    path = API.RequestsPathPost; break;
+            case "PUT":     path = API.RequestsPathPut; break;
+            case "DELETE":  path = API.RequestsPathDel; break;
+            default: {
+                res.send({"type": "error", "code": 405, "description": "Method Not Allowed"});
+                return;
+            }
         }
 
         //removing '/api/' prefix (should this to be changed to modular version ?)
@@ -77,8 +81,20 @@ export class API {
         if(lastParam.length==0) lastParam = params[params.length-1];
         params[params.length-1] = lastParam;
 
+        var connection: Connection = createConnection({
+            host: "localhost",
+            user: "root",
+            password: "",
+            database: "solidarity_bond",
+            port: 3308
+        })
+
+        connection.connect();
+
         //Executing the request
-        module.execute(params, req.body, req.query, res);
+        module.execute(params, req.body, req.query, res, connection);
+
+        connection.end();
     }
     
     /**
