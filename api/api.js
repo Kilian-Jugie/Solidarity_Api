@@ -65,6 +65,9 @@ var API = /** @class */ (function () {
             port: 3308
         });
         connection.connect();
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+        res.header('Access-Control-Allow-Headers', '*');
         //Executing the request
         module.execute(params, req.body, req.query, res, connection);
         connection.end();
