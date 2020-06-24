@@ -46,10 +46,8 @@ var API = /** @class */ (function () {
         //removing '/api/' prefix (should this to be changed to modular version ?)
         req.originalUrl = req.originalUrl.substr(5);
         //removing some sufixes if there is anothers parameters or query data
-        var name = req.originalUrl.substr(0, Math.max(req.originalUrl.indexOf("/"), req.originalUrl.indexOf("?")));
-        if (name.length == 0)
-            name = req.originalUrl;
-        var module = require(path + "/" + name);
+        //let name = req.originalUrl.substr(0, Math.max(req.originalUrl.indexOf("/"), req.originalUrl.indexOf("?")));
+        //if(name.length == 0) name = req.originalUrl; 
         var params = req.originalUrl.split("/");
         //TODO: turn this cleaner
         var lastParam = params[params.length - 1];
@@ -57,6 +55,7 @@ var API = /** @class */ (function () {
         if (lastParam.length == 0)
             lastParam = params[params.length - 1];
         params[params.length - 1] = lastParam;
+        var module = require(path + "/" + params[0]);
         var connection = mysql_1.createConnection({
             host: "localhost",
             user: "root",
