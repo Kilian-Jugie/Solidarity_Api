@@ -69,17 +69,20 @@ export class API {
         //removing '/api/' prefix (should this to be changed to modular version ?)
         req.originalUrl = req.originalUrl.substr(5);
         //removing some sufixes if there is anothers parameters or query data
-        let name = req.originalUrl.substr(0, Math.max(req.originalUrl.indexOf("/"), req.originalUrl.indexOf("?")));
-        if(name.length == 0) name = req.originalUrl; 
+        //let name = req.originalUrl.substr(0, Math.max(req.originalUrl.indexOf("/"), req.originalUrl.indexOf("?")));
+        //if(name.length == 0) name = req.originalUrl; 
 
-        let module: APIRequest = require(path+"/"+name);
         let params: String[] = req.originalUrl.split("/");
+        
+        
 
         //TODO: turn this cleaner
         let lastParam:String = params[params.length-1];
         lastParam = lastParam.substr(0, lastParam.indexOf("?"));
         if(lastParam.length==0) lastParam = params[params.length-1];
         params[params.length-1] = lastParam;
+
+        let module: APIRequest = require(path+"/"+params[0]);
 
         var connection: Connection = createConnection({
             host: "localhost",
@@ -90,6 +93,10 @@ export class API {
         })
 
         connection.connect();
+
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+        res.header('Access-Control-Allow-Headers', '*');
 
         //Executing the request
         module.execute(params, req.body, req.query, res, connection);

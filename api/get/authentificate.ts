@@ -11,15 +11,16 @@ import jsSHA from 'jssha'
  */
 class GetAuthentificate implements APIRequest {
     execute(params: String[], body: any, query: any, res: Response, dbcon: Connection): void {
-        dbcon.query("CALL Get_Authkey(?)",[+body.id], function(error, results, fields) {
+        dbcon.query("CALL Get_Authkey(?)",[+params[1]], function(error, results, fields) {
             const shaObj = new jsSHA("SHA-512", "TEXT", {encoding: "UTF8"});
             shaObj.update(results[0][0].authkey);
-            if(params[1] == undefined)
+            //if(params[1] == undefined)
                 shaObj.update("connexion");
-            else
-                shaObj.update(params[1].toString());
+            //else
+            //    shaObj.update(params[1].toString());
 
-            if(body.token == shaObj.getHash("HEX")) res.send({"type": "answer", "valid": true});
+
+            if(query.token == shaObj.getHash("HEX")) res.send({"type": "answer", "valid": true});
             else res.status(404).send({"type": "error", "description": "invalid authentification token"});
         });
     }
