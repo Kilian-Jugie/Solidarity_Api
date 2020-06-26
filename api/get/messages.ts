@@ -8,9 +8,16 @@ class GetMessages implements APIRequest {
             res.status(404).send({"type": "error", "description": "The account id is needed to see messages."})
             return;
         }
-        dbcon.query("CALL Get_Msg(?)", [+params[1]], function(error, results, fields) {
-            res.send(results[0]);
-        });
+        if(query["all"] === "true") {
+            dbcon.query("CALL Get_All_Msg(?)", [+params[1]], function(error, results, fields) {
+                res.send(results[0]);
+            });
+        }
+        else {
+            dbcon.query("CALL Get_Msg(?)", [+params[1]], function(error, results, fields) {
+                res.send(results[0]);
+            });
+        }
     }
 }
 
