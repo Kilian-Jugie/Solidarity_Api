@@ -1,3 +1,8 @@
+/**
+ * @file roles.ts
+ * @brief Add a new role to database
+ */
+
 import {APIRequest} from '../api';
 import { Request, Response } from 'express-serve-static-core';
 import { Utils } from '../utils';

@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * @file roles.ts
+ * @brief Add a new role to database
+ */
 var PostRoles = /** @class */ (function () {
     function PostRoles() {
     }

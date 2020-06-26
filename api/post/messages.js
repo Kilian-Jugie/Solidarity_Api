@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * @file users.ts
+ * @brief Add a new message to database
+ */
 var PostMessages = /** @class */ (function () {
     function PostMessages() {
     }
