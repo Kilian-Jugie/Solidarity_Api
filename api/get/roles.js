@@ -9,13 +9,11 @@ var GetRoles = /** @class */ (function () {
             });
         }
         else if (isNaN(+params[1])) {
-            console.log("nan");
             dbcon.query("CALL Get_Roles_Id(?)", [params[1]], function (error, results, fields) {
                 res.send(results[0][0]);
             });
         }
         else {
-            console.log("n");
             dbcon.query("CALL Get_Roles_Name(?)", [+params[1]], function (error, results, fields) {
                 res.send(results[0][0]);
             });

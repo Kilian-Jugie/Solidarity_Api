@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * @file users.ts
+ * @brief Add a new user to database
+ */
 var PostUsers = /** @class */ (function () {
     function PostUsers() {
     }

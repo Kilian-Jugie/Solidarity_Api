@@ -1,3 +1,8 @@
+/**
+ * @file users.ts
+ * @brief Add a new message to database
+ */
+
 import {APIRequest} from '../api';
 import { Request, Response } from 'express-serve-static-core';
 import { Utils } from '../utils';
@@ -11,7 +16,7 @@ class PostMessages implements APIRequest {
             return;
         }
         let today = new Date();
-        let date: string = today.getFullYear()+"-"+today.getMonth()+"-"+today.getDay()+"T"+today.getHours()+":"+today.getMinutes()+":"+today.getSeconds()+".000Z";
+        let date: string = today.getFullYear()+"-"+today.getMonth()+"-"+today.getDay();
         dbcon.query("CALL Add_Msg(?, ?, ?, ?)",[+params[1], +body.toid, date, body.text], function(error, results, fields) {
             console.log(error);
             res.status(201).send(results[0]);
